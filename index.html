@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Patroltool</title>
+        <style>
+            body {
+                font-family : sans-serif;
+            }
+            #nya{
+                line-height: 25px;
+                text-decoration: none;
+            }
+
+            a {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="nya">Fetching data from Wikipedia. Please wait...</div>
+
+
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        fetch("https://en.wikipedia.org/w/api.php?action=query&list=recentchanges&rctype=edit&rcprop=timestamp%7Ctitle%7Cids%7Csizes%7Cflags%7Cuser&rclimit=1000&format=json&origin=*")
+        .then( (response) => response.json())
+        .then((data) => process(data))
+
+        function process(data){
+            var nya = document.getElementById("nya")
+            //console.log(data.query.recentchanges)
+            nya.innerHTML = "Data successfully fetched. Processing..."
+            var all = data.query.recentchanges
+            
+
+            function compare(a,b){
+                var alen = a.newlen - a.oldlen
+                var blen = b.newlen - b.oldlen
+                if (alen > blen) {
+                    return -1;
+                } 
+                if (alen < blen){
+                    return 1;
+                }
+                return 0;
+            }
+            all.sort(compare)
+            
+            nya.innerHTML = ""
+            var theString = ""
+            all.forEach(procone)
+            
+
+            function procone(value,index,array){
+                //var nya = document.getElementById("nya")
+                var dif = value.newlen - value.oldlen
+                //console.log(value)
+                //nya.innerHTML += "["+ dif +"] "
+                //nya.innerHTML += "<b><a href='https://id.wikipedia.org/w/index.php?curid="+value.pageid+"&diff="+value.revid+"&oldid="+value.old_revid+"'>"+ value.title + "</a></b> - "+ value.user +"  (" + moment(value.timestamp).fromNow() + ")<br>"
+                theString += "["+ dif +"] "
+                theString += "<b><a href='https://en.wikipedia.org/w/index.php?curid="+value.pageid+"&diff="+value.revid+"&oldid="+value.old_revid+"'>"+ value.title + "</a></b> - "+ value.user +"  (" + moment(value.timestamp).fromNow() + ")<br>"
+               
+            }
+
+            nya.innerHTML = theString
+
+
+           
+        }
+    </script>
+</html>
+
+
