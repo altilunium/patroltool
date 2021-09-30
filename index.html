@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Patroltool</title>
+        <title>Pantauwiki</title>
         <style>
             body {
                 font-family : sans-serif;
@@ -24,7 +24,7 @@
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
-        fetch("https://en.wikipedia.org/w/api.php?action=query&list=recentchanges&rctype=edit&rcprop=timestamp%7Ctitle%7Cids%7Csizes%7Cflags%7Cuser&rclimit=1000&format=json&origin=*")
+        fetch("https://en.wikipedia.org/w/api.php?action=query&list=recentchanges&rcshow=!bot&rctype=edit&rcprop=timestamp%7Ctitle%7Cids%7Csizes%7Cflags%7Cuser&rclimit=500&format=json&origin=*")
         .then( (response) => response.json())
         .then((data) => process(data))
 
