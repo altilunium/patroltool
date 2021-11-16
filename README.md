@@ -1,2 +1,4 @@
 # patroltool
-en-wiki patrol tool
+Monitor Wikipedia's latest edits 
+
+https://altilunium.github.io/patroltool/
