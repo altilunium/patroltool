@@ -1,4 +1,4 @@
 # patroltool
-Monitor Wikipedia's latest edits 
+Monitor English Wikipedia's latest edits, sorted by bytecounts 
 
 https://altilunium.github.io/patroltool/
